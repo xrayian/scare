@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:lecle_volume_flutter/lecle_volume_flutter.dart';
 import 'firebase_options.dart';
 import 'package:clear_all_notifications/clear_all_notifications.dart';
 
@@ -18,9 +19,6 @@ Future<String> getDeviceName() async {
   return '$brand $model $name';
 }
 
-Future<void> initClearNotificationsState() async {
-  ClearAllNotifications.clear();
-}
 
 //@pragma annotation is used to specify the entry point of the application
 //This is required for the background message handler to work
@@ -30,7 +28,6 @@ Future<void> initClearNotificationsState() async {
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   final AudioPlayer player = AudioPlayer();
-  await initClearNotificationsState();
   if (message.data.containsKey('fileUrl')) {
     var src = AudioSource.uri(
       Uri.parse(message.data['fileUrl']),
@@ -44,10 +41,16 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     player.play();
   }
   print('Handling a background message: ${message.messageId}');
+  await Volume.initAudioStream(AudioManager.streamMusic);
+  await Volume.setVol(
+    androidVol: await Volume.getMaxVol,
+    showVolumeUI: false,
+  );
 }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   // await JustAudioBackground.init(
   //   androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
   //   androidNotificationChannelName: 'Audio playback',
@@ -107,6 +110,7 @@ class MediaPlayer extends StatefulWidget {
 
 class _MediaPlayerState extends State<MediaPlayer> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  late AudioManager audioManager;
 
   @override
   void initState() {
@@ -131,7 +135,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("This will automatically update please don't uninstall"),
+        child: Text("My First App"),
       ),
     );
   }

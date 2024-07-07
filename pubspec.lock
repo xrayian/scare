@@ -304,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.11"
+  lecle_volume_flutter:
+    dependency: "direct main"
+    description:
+      name: lecle_volume_flutter
+      sha256: "5519fed066f33c00a17b6c9fe3febc5517a8a2fe07edbf759bf1f25a33635820"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1+1"
   lints:
     dependency: transitive
     description:

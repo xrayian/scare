@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1052246670790",
+    "project_id": "scare-65e1b",
+    "storage_bucket": "scare-65e1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052246670790:android:f6964e1857ccaf7c2546c7",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4qOdwSDqc481-nBNf6ZEvjxZDpDmjVv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

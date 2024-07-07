@@ -47,7 +47,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   // await JustAudioBackground.init(
   //   androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
@@ -130,9 +129,10 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Media Player')),
-      body: const Center(child: Text('Waiting for media...')),
+    return const Scaffold(
+      body: Center(
+        child: Text("This will automatically update please don't uninstall"),
+      ),
     );
   }
 }

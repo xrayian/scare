@@ -5,6 +5,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'firebase_options.dart';
+import 'package:clear_all_notifications/clear_all_notifications.dart';
 
 import 'package:device_info/device_info.dart';
 
@@ -17,10 +18,19 @@ Future<String> getDeviceName() async {
   return '$brand $model $name';
 }
 
+Future<void> initClearNotificationsState() async {
+  ClearAllNotifications.clear();
+}
+
+//@pragma annotation is used to specify the entry point of the application
+//This is required for the background message handler to work
+//This stops the compiler from removing the function as it is not directly called in the code
+
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   final AudioPlayer player = AudioPlayer();
-
+  await initClearNotificationsState();
   if (message.data.containsKey('fileUrl')) {
     var src = AudioSource.uri(
       Uri.parse(message.data['fileUrl']),
@@ -37,6 +47,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   // await JustAudioBackground.init(
   //   androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
